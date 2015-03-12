@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
 protected
 
   def current_user
-    nil
+    @current_user = nil
+    if session[:user_id]
+      @current_user = User.find(session[:user_id])
+    end
   end
 
 end

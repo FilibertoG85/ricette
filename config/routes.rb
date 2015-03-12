@@ -55,6 +55,13 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+
+  # verbo nome, to: 'controller#azione'
+  get '/signup', to: 'users#new'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to:'sessions#destroy'
+
   resources :users
 
   get '/about' => 'welcome#about'
