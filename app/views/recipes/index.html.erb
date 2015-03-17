@@ -1,0 +1,56 @@
+<div class="row">
+  <div class= "col-md-5 col-lg-5">
+    <div class='row'>
+      <h3>Elenco ricette</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+          <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>Data</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipes.each do |r| %>
+          <tr>
+            <td><%= r.id %></td>
+            <td><%= image_tag 'torta.jpeg', size: '64x32' %></td>
+            <td><%= link_to r.name, controller: 'recipes', action: :index, id: r.id %></td>
+            <td><%= r.created_at.strftime('%Y-%m-%d') %></td>
+            <td><%= link_to 'Elimina', recipe_path(r), method: :delete, data: {confirm: 'Sei sicuro di voler cancellare quesa ricetta?'} %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class='row'>
+      <%= link_to 'Nuova ricetta', new_recipe_path, class: "btn btn-primary"  %>
+    </div>
+  </div>
+  <div class= "col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
+    <div class='row'>
+      <%= form_for @recipe, html: {class: 'form-horizontal'}  do |f| %>
+          <div class="form-group">
+            <%= image_tag 'torta.jpeg', size: '128x64' %>
+          </div>
+          <div class="form-group">
+            <label for="photo">Foto</label>
+            <%= f.text_field :image, class: 'form-control', placeholder: "Immagine ..." %>
+          </div>
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <%= f.text_field :name, class: 'form-control', placeholder: "Inserisci Nome" %>
+          </div>
+          <div class="form-group">
+            <label for="description">Descrizione</label>
+            <%= f.text_area :description, class: 'form-control', rows: '10' %>
+          </div>
+        <%= f.submit 'Salva modifiche', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

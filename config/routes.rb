@@ -65,6 +65,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :update, :destroy]
 
+  resources :recipes
+
   get '/about' => 'welcome#about'
 
   root 'welcome#index'

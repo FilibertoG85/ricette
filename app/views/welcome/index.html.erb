@@ -13,11 +13,11 @@
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox" style="height: 200px">
-        <% ([1,2,3,4,5,6].shuffle![0..2]).each_with_index do |indice,idx| %>
+        <%  @ricette_settimanali.each_with_index do |ricetta, idx| %>
           <div class="<%= "item " + ((idx == 0) ? 'active' : '')  %>" >
-            <%= image_tag("piatto#{indice}.jpeg", class: "img-thumbnail", style: "width: 100%; height: 200px; margin: auto") %>
+            <%= image_tag(ricetta.image, class: "img-thumbnail", style: "width: 100%; height: 200px; margin: auto") %>
             <div class="carousel-caption">
-              <%= "piatto#{indice}" %>
+              <%= ricetta.name %>
             </div>
           </div>
         <% end %>
@@ -42,18 +42,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Tiramisù</td>
-          <td>Filiberto</td>
-        </tr>
-        <tr>
-          <td>Gnocchi</td>
-          <td>Carmine</td>
-        </tr>
-        <tr>
-          <td>Torta</td>
-          <td>Francesco</td>
-        </tr>
+        <% @ricette_settimanali.each do |ricetta| %>
+          <tr>
+            <td><%= ricetta.name %></td>
+            <td><%= ricetta.user.name %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>   
 
@@ -61,12 +55,12 @@
 
   <div class='col-md-4 col-lg-4 text-center'>
       <div class="thumbnail">
-        <img src="assets/torta.jpeg">
+        <%= image_tag(@ricetta_della_settimana.image, class: "img-thumbnail", style: "width: 100%; height: 200px; margin: auto") %>
         <div class="caption">
           <h3>Ricetta della settimana</h3>
           <p>Questa settimana abbiamo scelto per voi ...</p>
-          <p>Preparare una base di pan di spagna ...</p>
-          <p><a href="#" class="btn btn-primary" role="button">Vai alla ricetta</a> <a href="#" class="btn btn-default" role="button">Archivio</a></p>
+          <p><%= @ricetta_della_settimana.description %></p>
+          <p><%= link_to 'Vai alla ricetta', recipe_path(@ricetta_della_settimana), class: 'btn btn-primary' %> </p>
         </div>
       </div>
   </div>
